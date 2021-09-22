@@ -6,6 +6,8 @@ import Screen from './Screen';
 import Icon from './Icon';
 import ListSeparator from './ListSeparator';
 
+import SingleListItem from './SingleListItem';
+
 const menuItem=[
     {
         title:"My Todos",
@@ -20,21 +22,21 @@ export default function UserAccount() {
   return (
     <Screen>
         <View style={styles.container}>
-        <ListItem title="Saurabh" subTitle="saurabh3250@gmail.com" image={require('../../assets/user.png')}></ListItem>
+        <SingleListItem title="Saurabh" subTitle="saurabh3250@gmail.com" image={require('../../assets/user.png')}></SingleListItem>
         </View>
+
         <ListSeparator></ListSeparator>
+
         <View style={styles.container}>
+           
             <FlatList data={menuItem} 
             keyExtractor={menuItem =>menuItem.title}
             renderItem={({item})=>
-            <ListItem title={item.title} ImageComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} ></Icon>}>
-
-            </ListItem>
+            <SingleListItem title={item.title} ImageComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} ></Icon>}/>
             }
-            ></FlatList>
-            
+            ></FlatList> 
         </View>
-            <ListItem title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}></ListItem>
+            <SingleListItem title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}/>
     </Screen>
     );
 }

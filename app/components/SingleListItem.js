@@ -7,43 +7,19 @@ import AppTextInput from './AppTextInput';
 import {AntDesign } from '@expo/vector-icons';
 
 
-export default function ListItem({title,subTitle,image,onPress,  renderRightActions,
-})
-
+export default function SingleListItem({title,ImageComponent,image})
  {
-    const [visible,setVisible] = useState(false);
 
   return (
       <>
-    <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.lightGrey} onPress={onPress} >
     <View style={styles.container} >
-        
-        {/* If image is then and then only it render for todo logo*/}
-
+        {ImageComponent}
         {image&&<Image style={styles.image} source={image}></Image>}
-        
         <View style={styles.textContainer}>
             <Text style={styles.title} 
-            onPress={()=>setVisible(true)} >{title} </Text>
-            {/* We Dont Want Subtitle in User: Component reusable */}
-            {/* {subTitle&&<Text style={styles.subTitle}>{subTitle}</Text>} */}
-        </View>
-
-
+             >{title} </Text>
+        </View>  
      </View>
-      </TouchableHighlight>
-      </Swipeable>
-
-    {/* Modal For Update  get open when click on todo text*/}
-      <Modal visible={visible} animationType="slide" >     
-      <Screen>
-          <View  style={styles.closeIcon}>
-            <AntDesign name="closecircleo" size={24} color={"#E03B8B"} onPress={()=>setVisible(false) } />
-            <AppTextInput icon="form" placeholder="Update Todo" ></AppTextInput>
-          </View>
-      </Screen>
-        </Modal>
 </>
       
   );

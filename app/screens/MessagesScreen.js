@@ -6,6 +6,7 @@ import Screen from '../components/Screen';
 import ListSeparator from '../components/ListSeparator';
 
 import ListItemDeleteComponent from '../components/ListItemDeleteComponent';
+
 const initialMessage = [
     {
         id:1,
