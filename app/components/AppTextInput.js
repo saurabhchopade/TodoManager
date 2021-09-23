@@ -3,22 +3,20 @@ import { View, Text,TextInput,StyleSheet } from 'react-native';
 import { MaterialCommunityIcons,AntDesign } from '@expo/vector-icons';
 import colors from '../config/colors';
 
-export default function AppTextInput({icon,placeholder}) {
+export default function AppTextInput({icon,placeholder,onChangeText,addTodo,FieldValue}) {
   const [textInputValue, setTextInputValue] = useState('');
 
-  // console.log(textInputValue);
 
   return (
     <View style={styles.container}>
       {icon&&<MaterialCommunityIcons name={icon} size={20} color={"#758283"}  style={styles.icon}></MaterialCommunityIcons>}
       <TextInput 
-       onChangeText={text => setTextInputValue(text)}
-       value={textInputValue}
-        onKeyPress={ 
-          ()=>clearImmediate
-        }
-       placeholder={placeholder} 
-      style={styles.textInput} ></TextInput>
+       onChangeText={onChangeText}
+       placeholder={placeholder}
+      style={styles.textInput}
+      value={FieldValue}
+      ></TextInput>
+      <MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>
      </View>
   );
 }
@@ -38,8 +36,14 @@ const styles = StyleSheet.create({
   textInput:{
     fontSize:18,
     fontFamily:"Roboto",
+    paddingRight:70,
   },
   icon:{
     marginRight:10,
+  },
+  addIcon:{
+    // marginRight:10,
+    marginTop:5,
+    marginLeft:30,
   }
 })

@@ -7,7 +7,7 @@ import AppTextInput from './AppTextInput';
 import {AntDesign } from '@expo/vector-icons';
 
 
-export default function ListItem({title,subTitle,image,onPress,  renderRightActions,
+export default function ListItem({title,subTitle,image,onPress, addTodo, renderRightActions,
 })
 
  {
@@ -40,7 +40,7 @@ export default function ListItem({title,subTitle,image,onPress,  renderRightActi
       <Screen>
           <View  style={styles.closeIcon}>
             <AntDesign name="closecircleo" size={24} color={"#E03B8B"} onPress={()=>setVisible(false) } />
-            <AppTextInput icon="form" placeholder="Update Todo" ></AppTextInput>
+            <AppTextInput icon="star" placeholder="Update Todo" onPress={addTodo}  ></AppTextInput>
           </View>
       </Screen>
         </Modal>
