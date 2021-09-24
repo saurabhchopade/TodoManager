@@ -7,12 +7,15 @@ import AppTextInput from './AppTextInput';
 import {AntDesign } from '@expo/vector-icons';
 
 
-export default function ListItem({title,subTitle,image,onPress, addTodo, renderRightActions,
+export default function ListItem({title,subTitle,image,onPress, addTodo, renderRightActions,onChangeText,
 })
 
  {
     const [visible,setVisible] = useState(false);
 
+    const visi=(bool)=>{
+      setVisible(bool)
+    }
   return (
       <>
     <Swipeable renderRightActions={renderRightActions}>
@@ -40,7 +43,7 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
       <Screen>
           <View  style={styles.closeIcon}>
             <AntDesign name="closecircleo" size={24} color={"#E03B8B"} onPress={()=>setVisible(false) } />
-            <AppTextInput icon="star" placeholder="Update Todo" onPress={addTodo}  ></AppTextInput>
+            <AppTextInput icon="star" placeholder="Update Todo" addTodo={addTodo} onChangeText={onChangeText}  ></AppTextInput>
           </View>
       </Screen>
         </Modal>

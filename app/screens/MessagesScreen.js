@@ -48,7 +48,7 @@ export default function MessagesScreen() {
       }).
           map( doc=> ({id:doc.id, todo:doc.data().todo}) ))
     
-        console.log(snapshot.docs.map( doc=> ({id:doc.id, todo:doc.data().todo}) ));
+        // console.log(snapshot.docs.map( doc=> ({id:doc.id, todo:doc.data().todo}) ));
       });
     }, []);
     
@@ -71,6 +71,17 @@ export default function MessagesScreen() {
     }
   }
 
+  const updateTodo =(id) =>{
+
+    console.log(id)
+    if(input){
+    db.collection('users').doc(id).set({
+        todo: input
+    },{merge:true})
+    setInput('');
+    }
+}
+
 
     return (
     <Screen  >
@@ -86,6 +97,8 @@ export default function MessagesScreen() {
         // subTitle={item.Description}
         image={require('../../assets/abc.jpg')}
 
+        onChangeText={(text)=>setInput(text)}
+        addTodo={()=>updateTodo(item.id)}
         renderRightActions={()=>(
             <ListItemDeleteComponent onPress={()=>handleDelete(item.id)}></ListItemDeleteComponent>)
         }
