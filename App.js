@@ -60,16 +60,16 @@ import colors from './app/config/colors';
     );
   }
   
-//   const Stack = createNativeStackNavigator();
+  const Stack = createNativeStackNavigator();
   
-//   const StackNav = ()=>{
-//       return(
-//     <Stack.Navigator>
-//         <Stack.Screen name="Login" component={HomeScreen1} />
-//         <Stack.Screen name="Register" component={HomeScreen2} />
-//      </Stack.Navigator>
-//           );
-//   }
+  const StackNav = ()=>{
+      return(
+    <Stack.Navigator screenOptions={{headerShown:false}}>
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Register" component={RegisterScreen} />
+     </Stack.Navigator>
+          );
+  }
   
 
 
@@ -85,10 +85,13 @@ import colors from './app/config/colors';
   }
 
   export default function App() {
+    const [hasAccount,setHasAccount] = useState(false);
+
       return (
           <>
-          <NavigationContainer>
+          <NavigationContainer> 
               <TabNav></TabNav>
+              {/* <StackNav></StackNav> */}
             </NavigationContainer>
             </>
     );
