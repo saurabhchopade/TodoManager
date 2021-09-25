@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { View,ActivityIndicator, Text,FlatList,SafeAreaView,StyleSheet,Platform,StatusBar,TouchableWithoutFeedback } from 'react-native';
+import { View, Text,FlatList,SafeAreaView,StyleSheet,Platform,StatusBar,TouchableWithoutFeedback } from 'react-native';
 import ListItem from '../components/ListItem';
 import Constants from 'expo-constants';
 import Screen from '../components/Screen';
@@ -10,8 +10,7 @@ import app from '../config/firebase.js'
 import firebase from "firebase";
 import {MaterialCommunityIcons} from  '@expo/vector-icons'
 import colors from '../config/colors';
-
-
+import ActivityIndicator from '../components/ActivityIndicator';
 export default function MessagesScreen() {
 
 
@@ -79,8 +78,8 @@ export default function MessagesScreen() {
     <Screen  >
          <AppTextInput icon="star" placeholder="Write Todo" onChangeText={(text)=>setInput(text)} addTodo={addTodo} FieldValue={input}  ></AppTextInput>
          {/* <MaterialCommunityIcons style={styles.icon} name="plus" size={5} onPress={addTodo}/> */}
+        <ActivityIndicator visible={isLoading}></ActivityIndicator>
         
-        {isLoading&&<ActivityIndicator animating={isLoading} size="large" color={colors.black}></ActivityIndicator>}
 
         <FlatList
          data={messages}
