@@ -19,6 +19,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import colors from './app/config/colors';
 import AuthNavigator from './app/navigation/AuthNavigator';
 import AppNavigator from './app/navigation/AppNavigator';
+import Auth from './app/service/Auth';
 
   export default function App() {
     const [hasAccount,setHasAccount] = useState(true);

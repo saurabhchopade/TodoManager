@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { View, Text,FlatList,SafeAreaView,StyleSheet,Platform,StatusBar,TouchableWithoutFeedback } from 'react-native';
+import { View,ActivityIndicator, Text,FlatList,SafeAreaView,StyleSheet,Platform,StatusBar,TouchableWithoutFeedback } from 'react-native';
 import ListItem from '../components/ListItem';
 import Constants from 'expo-constants';
 import Screen from '../components/Screen';
@@ -9,20 +9,7 @@ import AppTextInput from '../components/AppTextInput';
 import app from '../config/firebase.js'
 import firebase from "firebase";
 import {MaterialCommunityIcons} from  '@expo/vector-icons'
-
-const initialMessage = [
-    {
-        id:1,
-        title:"WriteSomeCode",
-        Description:"MyFirstTodo",
-    },
-    {
-        id:2,
-        title:"WriteSomeCode",
-        Description:"D1",
-    }
-]
-
+import colors from '../config/colors';
 
 
 export default function MessagesScreen() {
@@ -31,6 +18,7 @@ export default function MessagesScreen() {
     const [messages,setMessages] = useState([]);
     const [refresh,setRefresh] = useState(false);
     const [input,setInput]  = useState('');
+    const [isLoading,setIsLoading]  = useState(true);
 
 
     const db = app.firestore();
@@ -39,6 +27,10 @@ export default function MessagesScreen() {
     // const [input,setInput]  = useState('');
     // const [uid,setUid]  = useState('');
     
+
+    const setLoad=()=>{
+        setIsLoading(false);
+    }
     // //TODO: Handle Bug
     useEffect(() => {
       db.collection('users').orderBy('timestamp','desc').onSnapshot(snapshot=>{
@@ -47,7 +39,7 @@ export default function MessagesScreen() {
           return student.data().uid === "wdFN3AUnUWdom2fsavP3xJdvrvq2";
       }).
           map( doc=> ({id:doc.id, todo:doc.data().todo}) ))
-    
+        setLoad();
         // console.log(snapshot.docs.map( doc=> ({id:doc.id, todo:doc.data().todo}) ));
       });
     }, []);
@@ -87,6 +79,9 @@ export default function MessagesScreen() {
     <Screen  >
          <AppTextInput icon="star" placeholder="Write Todo" onChangeText={(text)=>setInput(text)} addTodo={addTodo} FieldValue={input}  ></AppTextInput>
          {/* <MaterialCommunityIcons style={styles.icon} name="plus" size={5} onPress={addTodo}/> */}
+        
+        {isLoading&&<ActivityIndicator animating={isLoading} size="large" color={colors.black}></ActivityIndicator>}
+
         <FlatList
          data={messages}
         keyExtractor={message=>message.id.toString()} 
@@ -96,7 +91,6 @@ export default function MessagesScreen() {
         title={item.todo}
         // subTitle={item.Description}
         image={require('../../assets/abc.jpg')}
-
         onChangeText={(text)=>setInput(text)}
         addTodo={()=>updateTodo(item.id)}
         renderRightActions={()=>(
