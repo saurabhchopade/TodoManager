@@ -2,8 +2,6 @@ import React from 'react';
 import { Text,View,ImageBackground,StyleSheet,Image } from 'react-native';
 import AppButton from '../components/AppButton';
 
-import AuthNavigator from '../navigation/AuthNavigator';
-
 function Welcome({navigation}) {
     return (
         <ImageBackground 

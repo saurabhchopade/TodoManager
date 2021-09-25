@@ -18,7 +18,7 @@ const menuItem=[
     }
 ]
 
-export default function UserAccount() {
+export default function UserAccount({navigation}) {
   return (
     <Screen>
         <View style={styles.container}>
@@ -32,7 +32,10 @@ export default function UserAccount() {
             <FlatList data={menuItem} 
             keyExtractor={menuItem =>menuItem.title}
             renderItem={({item})=>
-            <SingleListItem title={item.title} ImageComponent={<Icon name={item.icon.name} backgroundColor={item.icon.backgroundColor} ></Icon>}/>
+            <SingleListItem title={item.title} ImageComponent={<Icon name={item.icon.name}  backgroundColor={item.icon.backgroundColor} ></Icon>}
+            onPress={()=>navigation.navigate('MessagesScreen')}
+            />
+        
             }
             ></FlatList> 
         </View>

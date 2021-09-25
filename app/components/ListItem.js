@@ -26,6 +26,7 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
 
         {image&&<Image style={styles.image} source={image}></Image>}
         
+
         <View style={styles.textContainer}>
             <Text style={styles.title} 
             onPress={()=>setVisible(true)} >{title} </Text>

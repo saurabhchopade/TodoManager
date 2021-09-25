@@ -21,7 +21,7 @@ import AuthNavigator from './app/navigation/AuthNavigator';
 import AppNavigator from './app/navigation/AppNavigator';
 
   export default function App() {
-    const [hasAccount,setHasAccount] = useState(false);
+    const [hasAccount,setHasAccount] = useState(true);
 
       return (
             hasAccount?(

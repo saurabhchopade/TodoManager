@@ -12,7 +12,7 @@ import colors from '../config/colors';
   const AppNavigator =()=>{
       return(
           <Tab.Navigator screenOptions={{headerShown:false}} >
-              <Tab.Screen name="Todos"  options={{ headerShown: false }} component={MessagesScreen} options={{tabBarIcon:()=><MaterialCommunityIcons name="home" color={colors.secondary} size={30}/>,tabBarBadge:2}}></Tab.Screen>
+              <Tab.Screen name="MessagesScreen"  options={{ headerShown: false }} component={MessagesScreen} options={{tabBarIcon:()=><MaterialCommunityIcons name="home" color={colors.secondary} size={30}/>,tabBarBadge:2}}></Tab.Screen>
               <Tab.Screen name="Account" component={UserAccount} options={{tabBarIcon:()=><MaterialCommunityIcons name="account" size={30}/>}}></Tab.Screen>
           </Tab.Navigator>
       )
