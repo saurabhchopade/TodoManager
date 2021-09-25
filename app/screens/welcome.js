@@ -2,22 +2,24 @@ import React from 'react';
 import { Text,View,ImageBackground,StyleSheet,Image } from 'react-native';
 import AppButton from '../components/AppButton';
 
-function Welcome() {
+import AuthNavigator from '../navigation/AuthNavigator';
+
+function Welcome({navigation}) {
     return (
         <ImageBackground 
-        blurRadius={2}
+        // blurRadius={2}
         style={styles.background}
         source={require("../img.jpeg")}
         >
 
         <View style={styles.logoContainer}>
-        <Image source={require('../logo.png')} style={styles.logo}></Image>
-        <Text style={styles.tagline}>Check Your Todo</Text>
+        {/* <Image source={require('../logo.png')} style={styles.logo}></Image> */}
+        {/* <Text style={styles.tagline}>Check Your Todo</Text> */}
         </View>
        
        <View style={styles.buttonContainer}>
-        <AppButton title="Login"></AppButton>
-        <AppButton title="Register"  color="secondary"></AppButton>
+        <AppButton title="Login" onPress={()=>navigation.navigate('Login')}></AppButton>
+        <AppButton title="Register"  color="secondary" onPress={()=>navigation.navigate('Register')}></AppButton>
         </View>
 
         </ImageBackground>
