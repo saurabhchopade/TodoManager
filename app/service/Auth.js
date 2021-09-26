@@ -1,19 +1,22 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import app from '../config/firebase.js'
 import firebase from "firebase";
 import { View, Text } from 'react-native';
 
+import store from './store.js';
 
 export default function Auth() {
+    
+    console.log(store);
 
     const db = app.firestore();
-    
     const [email,setEmail] = useState('');
     const [password,setPassword] = useState('');
     const [user,setUser] = useState('');
     const [emailError,setEmailError] = useState('');
-    const [hasAccount,setHasAccount] = useState();
-    
+    const [hasAccount,setHasAccount] = useState(true);
+
+    setHasAccount(false);
     const clearInputs =()=>{
         setEmail('');
         setPassword('');
@@ -77,8 +80,6 @@ export default function Auth() {
           setEmailError(error.message);
       })
     };
-    
-    
 }
 
 

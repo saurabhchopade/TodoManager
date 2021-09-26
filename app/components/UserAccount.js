@@ -7,6 +7,7 @@ import Icon from './Icon';
 import ListSeparator from './ListSeparator';
 
 import SingleListItem from './SingleListItem';
+import store from '../service/store';
 
 const menuItem=[
     {
@@ -17,6 +18,16 @@ const menuItem=[
         }
     }
 ]
+
+const logOut=(nav)=>{
+    store.dispatch({
+      type:'stateChanged',
+      payload:{
+        state1:'false',
+      }
+    })
+    nav.navigate('Welcome')
+  }
 
 export default function UserAccount({navigation}) {
   return (
@@ -39,7 +50,7 @@ export default function UserAccount({navigation}) {
             }
             ></FlatList> 
         </View>
-            <SingleListItem title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}/>
+            <SingleListItem  onPress={()=>{logOut(navigation)}} title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}/>
     </Screen>
     );
 }

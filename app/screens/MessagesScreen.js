@@ -11,8 +11,10 @@ import firebase from "firebase";
 import {MaterialCommunityIcons} from  '@expo/vector-icons'
 import colors from '../config/colors';
 import ActivityIndicator from '../components/ActivityIndicator';
+
 export default function MessagesScreen() {
 
+    const db = app.firestore();
 
     const [messages,setMessages] = useState([]);
     const [refresh,setRefresh] = useState(false);
@@ -20,7 +22,6 @@ export default function MessagesScreen() {
     const [isLoading,setIsLoading]  = useState(true);
 
 
-    const db = app.firestore();
 
     const [todos,setTodos]= useState([]);
     // const [input,setInput]  = useState('');
@@ -32,7 +33,7 @@ export default function MessagesScreen() {
     }
     // //TODO: Handle Bug
     useEffect(() => {
-      db.collection('users').orderBy('timestamp','desc').onSnapshot(snapshot=>{
+      db.collection('users').where('uid','==','wdFN3AUnUWdom2fsavP3xJdvrvq2').onSnapshot(snapshot=>{
         setMessages(snapshot.docs.filter(function (student) {
         //   return student.data().uid === app.auth().currentUser.uid;
           return student.data().uid === "wdFN3AUnUWdom2fsavP3xJdvrvq2";
@@ -70,6 +71,7 @@ export default function MessagesScreen() {
         todo: input
     },{merge:true})
     setInput('');
+    // {ActivityIndicator visible}
     }
 }
 
