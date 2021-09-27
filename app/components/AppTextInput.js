@@ -5,7 +5,7 @@ import colors from '../config/colors';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
-export default function AppTextInput({icon,placeholder,onChangeText,addTodo,FieldValue}) {
+export default function AppTextInput({icon,placeholder,onChangeText,addTodo,FieldValue,autoCapitalize}) {
   const [textInputValue, setTextInputValue] = useState('');
 
 
@@ -17,6 +17,7 @@ export default function AppTextInput({icon,placeholder,onChangeText,addTodo,Fiel
        onChangeText={onChangeText}
        placeholder={placeholder}
       style={styles.textInput}
+      autoCapitalize = {autoCapitalize}
       value={FieldValue}
       ></TextInput>
       {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>}
