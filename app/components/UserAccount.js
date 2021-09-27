@@ -41,14 +41,14 @@ export default function UserAccount({navigation}) {
   
   
       const st=(hasAccount)=>{
-        setUser(hasAccount.displayName);
+        setUser(hasAccount);
       }
       store.subscribe(()=>st( store.getState().user));
       
   return (
     <Screen>
         <View style={styles.container}>
-        <SingleListItem title={"user"} subTitle="saurabh3250@gmail.com" image={require('../../assets/user.png')}></SingleListItem>
+        <SingleListItem title={"Welcome"} subTitle="saurabh3250@gmail.com" image={require('../../assets/user.png')}></SingleListItem>
         </View>
 
         <ListSeparator></ListSeparator>

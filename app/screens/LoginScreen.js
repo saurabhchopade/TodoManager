@@ -5,6 +5,7 @@ import AppButton from '../components/AppButton';
 import Screen from '../components/Screen';
 import store from '../service/store';
 import firebase from "firebase";
+import SignUpIndicator from '../components/SignUpIndicator'
 import app from '../config/firebase'
 
 export default function LoginScreen({navigation}) {
@@ -37,22 +38,11 @@ export default function LoginScreen({navigation}) {
           }
     });
     
-
-    // if(user !== ''){
-    //   console.log("Logged")
-    //   store.dispatch({
-    //     type:'stateChanged',
-    //     payload:{
-    //       state1:'true',
-    //     }
-    //   })
-    // }
-    
     const st=(hasAccount)=>{
       console.log(hasAccount);
       if(hasAccount==="true"){
-        console.log(user);
-        navigation.navigate('AppNavigator');
+        // console.log(user);
+        navigation.navigate("AppNavigator");
       }
     }
     store.subscribe(()=>st( store.getState().state1));

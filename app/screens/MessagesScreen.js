@@ -33,10 +33,10 @@ export default function MessagesScreen() {
     }
     // //TODO: Handle Bug
     useEffect(() => {
-      db.collection('users').where('uid','==','wdFN3AUnUWdom2fsavP3xJdvrvq2').onSnapshot(snapshot=>{
+      db.collection('users').where('uid','==',app.auth().currentUser.uid).onSnapshot(snapshot=>{
         setMessages(snapshot.docs.filter(function (student) {
         //   return student.data().uid === app.auth().currentUser.uid;
-          return student.data().uid === "wdFN3AUnUWdom2fsavP3xJdvrvq2";
+          return student.data().uid === app.auth().currentUser.uid;;
       }).
           map( doc=> ({id:doc.id, todo:doc.data().todo}) ))
         setLoad();
@@ -50,12 +50,11 @@ export default function MessagesScreen() {
     }
 
 
-
   const addTodo = ()=>{
     if(input){
       db.collection("users").add({
       //   uid: app.auth().currentUser.uid,
-        uid: "wdFN3AUnUWdom2fsavP3xJdvrvq2",
+        uid: app.auth().currentUser.uid,
         todo: input,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
       })
