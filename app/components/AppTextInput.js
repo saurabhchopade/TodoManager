@@ -13,6 +13,7 @@ export default function AppTextInput({icon,placeholder,onChangeText,addTodo,Fiel
     <>
     <View style={styles.container}>
       {icon&&<MaterialCommunityIcons name={icon} size={20} color={"#758283"}  style={styles.icon}></MaterialCommunityIcons>}
+     
       <TextInput 
        onChangeText={onChangeText}
        placeholder={placeholder}
@@ -20,7 +21,10 @@ export default function AppTextInput({icon,placeholder,onChangeText,addTodo,Fiel
       autoCapitalize = {autoCapitalize}
       value={FieldValue}
       ></TextInput>
+      
       {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>}
+     
+     
      </View>
      </>
   );
@@ -42,6 +46,7 @@ const styles = StyleSheet.create({
     fontSize:18,
     fontFamily:"Roboto",
     paddingRight:70,
+    marginRight:20,
   },
   icon:{
     marginRight:10,

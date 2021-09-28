@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {StyleSheet, View, Text,Image,TouchableHighlight,Modal,Button,TouchableWithoutFeedback } from 'react-native';
+import {StyleSheet, View, Text,Image,TouchableHighlight,TouchableWithoutFeedbackComponent,Modal,Button,TouchableWithoutFeedback } from 'react-native';
 import colors from '../config/colors';
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import Screen from './Screen';
@@ -36,7 +36,8 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
   return (
       <>
     <Swipeable renderRightActions={renderRightActions}>
-      <TouchableHighlight underlayColor={colors.lightGrey} onPress={onPress} >
+      <TouchableHighlight  underlayColor={colors.lightGrey} onPress={onPress} >
+      <TouchableHighlight underlayColor="none" onPress={()=>setVisible(true)}>
     <View style={styles.container} >
         
         {/* If image is then and then only it render for todo logo*/}
@@ -46,13 +47,14 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
 
         <View style={styles.textContainer}>
             <Text style={styles.title} 
-            onPress={()=>setVisible(true)} >{title} </Text>
+             >{title} </Text>
             {/* We Dont Want Subtitle in User: Component reusable */}
             {/* {subTitle&&<Text style={styles.subTitle}>{subTitle}</Text>} */}
         </View>
 
 
      </View>
+       </TouchableHighlight>
       </TouchableHighlight>
       </Swipeable>
 
@@ -68,10 +70,8 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
 
             <TextInput 
 
-              // label="E"
+              // label="Update Todo"
               value={input}
-              // onChangeText={text => setText(text)}
-
               onChangeText={(input)=>setInput(input)}
             //  placeholder="Update Todo"
               style={styles.textInput}
