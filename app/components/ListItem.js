@@ -4,18 +4,35 @@ import colors from '../config/colors';
 import Swipeable from "react-native-gesture-handler/Swipeable";
 import Screen from './Screen';
 import AppTextInput from './AppTextInput';
-import {AntDesign } from '@expo/vector-icons';
-
+import { MaterialCommunityIcons,AntDesign} from '@expo/vector-icons';
+import { TextInput } from 'react-native-paper';
+import app from '../config/firebase'
 
 export default function ListItem({title,subTitle,image,onPress, addTodo, renderRightActions,onChangeText,
 })
 
  {
     const [visible,setVisible] = useState(false);
+    const [input,setInput] = useState('');
 
-    const visi=(bool)=>{
-      setVisible(bool)
+
+    
+  const db = app.firestore();
+
+  const updateTodo =(id) =>{
+
+    console.log(id)
+    if(input){
+    db.collection('users').doc(id).set({
+        todo: input
+    },{merge:true})
+    setInput('');
+    setVisible(false);
     }
+}
+
+
+
   return (
       <>
     <Swipeable renderRightActions={renderRightActions}>
@@ -43,8 +60,26 @@ export default function ListItem({title,subTitle,image,onPress, addTodo, renderR
       <Modal visible={visible} animationType="slide" >     
       <Screen>
           <View  style={styles.closeIcon}>
-            <AntDesign name="closecircleo" size={24} color={"#E03B8B"} onPress={()=>setVisible(false) } />
-            <AppTextInput icon="star" placeholder="Update Todo" addTodo={addTodo} onChangeText={onChangeText}  ></AppTextInput>
+
+
+             <AntDesign name="closecircleo" size={24} color={"#E03B8B"} onPress={()=>setVisible(false) } />
+            {/* <AppTextInput icon="star" placeholder="Update Todo" addTodo={addTodo} onChangeText={onChangeText}  ></AppTextInput> */}
+
+
+            <TextInput 
+
+              // label="E"
+              value={input}
+              // onChangeText={text => setText(text)}
+
+              onChangeText={(input)=>setInput(input)}
+            //  placeholder="Update Todo"
+              style={styles.textInput}
+              autoCapitalize = "none"
+            // value={FieldValue}
+            ></TextInput>
+            <MaterialCommunityIcons style={styles.addIcon} name="plus" size={40} onPress={()=>updateTodo(addTodo)} />
+            
           </View>
       </Screen>
         </Modal>
@@ -57,6 +92,8 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:"row",
         padding:15,
+        alignContent:"center",
+        alignContent:"center",
         // backgroundColor:"#CAD5E2"
     },
     textContainer:{
@@ -80,4 +117,27 @@ const styles = StyleSheet.create({
         alignItems:"center",
         justifyContent:"center",
     },
+    textInput:{
+      marginTop:20,
+      fontSize:18,
+      // marginRight:"20%",
+      // marginLeft:"20%",
+      height:50,
+      width:300,
+      // fontFamily:"Roboto",
+      // paddingRight:70,
+    },
+    addIcon:{
+      // marginRight:10,
+      marginTop:30,
+      marginLeft:30,
+      backgroundColor:colors.secondary,
+      borderRadius:20,
+      alignSelf:"center",
+      alignItems:"center",
+      alignContent:"center",
+
+      // padding:10
+      // alignSelf:"center"
+    }
 })

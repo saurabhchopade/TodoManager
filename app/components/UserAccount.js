@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import { View, Text,StyleSheet,FlatList } from 'react-native';
 import colors from '../config/colors';
 import ListItem from './ListItem';
@@ -8,8 +8,6 @@ import ListSeparator from './ListSeparator';
 
 import SingleListItem from './SingleListItem';
 import store from '../service/store';
-
-import firebase from "firebase";
 import app from '../config/firebase'
 
 const menuItem=[
@@ -45,6 +43,38 @@ export default function UserAccount({navigation}) {
       }
       store.subscribe(()=>st( store.getState().user));
       
+
+
+  const authListener = () =>{
+    app.auth().onAuthStateChanged(function(user) {
+        if(user){
+            setUser(user);
+            store.dispatch({
+              type:'stateChanged',
+              payload:{
+                state1:'true',
+                user:user,
+              }
+            });
+
+        }else{
+            setUser("");
+            store.dispatch({
+              type:'stateChanged',
+              payload:{
+                state1:'false',
+              }
+            })
+        }
+    });
+};
+
+useEffect(()=>{
+    authListener();
+},[]);
+
+
+
   return (
     <Screen>
         <View style={styles.container}>
@@ -59,9 +89,8 @@ export default function UserAccount({navigation}) {
             keyExtractor={menuItem =>menuItem.title}
             renderItem={({item})=>
             <SingleListItem title={item.title} ImageComponent={<Icon name={item.icon.name}  backgroundColor={item.icon.backgroundColor} ></Icon>}
-            onPress={()=>navigation.navigate('MessagesScreen')}
+            onPress={()=>navigation.navigate('Todos')}
             />
-        
             }
             ></FlatList> 
         </View>

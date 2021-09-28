@@ -11,6 +11,7 @@ import firebase from "firebase";
 import {MaterialCommunityIcons} from  '@expo/vector-icons'
 import colors from '../config/colors';
 import ActivityIndicator from '../components/ActivityIndicator';
+import store from '../service/store';
 
 export default function MessagesScreen() {
 
@@ -20,6 +21,7 @@ export default function MessagesScreen() {
     const [refresh,setRefresh] = useState(false);
     const [input,setInput]  = useState('');
     const [isLoading,setIsLoading]  = useState(true);
+    const [user,setUser] = useState('');
 
 
 
@@ -35,7 +37,6 @@ export default function MessagesScreen() {
     useEffect(() => {
       db.collection('users').where('uid','==',app.auth().currentUser.uid).onSnapshot(snapshot=>{
         setMessages(snapshot.docs.filter(function (student) {
-        //   return student.data().uid === app.auth().currentUser.uid;
           return student.data().uid === app.auth().currentUser.uid;;
       }).
           map( doc=> ({id:doc.id, todo:doc.data().todo}) ))
@@ -53,7 +54,6 @@ export default function MessagesScreen() {
   const addTodo = ()=>{
     if(input){
       db.collection("users").add({
-      //   uid: app.auth().currentUser.uid,
         uid: app.auth().currentUser.uid,
         todo: input,
         timestamp: firebase.firestore.FieldValue.serverTimestamp()
@@ -74,6 +74,37 @@ export default function MessagesScreen() {
     }
 }
 
+const authListener = () =>{
+  app.auth().onAuthStateChanged(function(user) {
+      if(user){
+          setUser(user);
+          store.dispatch({
+            type:'stateChanged',
+            payload:{
+              state1:'true',
+              user:user,
+            }
+          });
+
+      }else{
+          setUser("");
+          store.dispatch({
+            type:'stateChanged',
+            payload:{
+              state1:'false',
+            }
+          });
+          setUser("");
+      }
+  });
+};
+
+useEffect(()=>{
+  authListener();
+},[]);
+
+
+
 
     return (
     <Screen  >
@@ -92,7 +123,7 @@ export default function MessagesScreen() {
         // subTitle={item.Description}
         image={require('../../assets/abc.jpg')}
         onChangeText={(text)=>setInput(text)}
-        addTodo={()=>updateTodo(item.id)}
+        addTodo={item.id}
         renderRightActions={()=>(
             <ListItemDeleteComponent onPress={()=>handleDelete(item.id)}></ListItemDeleteComponent>)
         }
