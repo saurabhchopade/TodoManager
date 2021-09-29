@@ -25,7 +25,7 @@ export default function UserAccount({navigation}) {
   
   const [user,setUser] = useState('');
 
-  const logOut=(nav)=>{
+  const logOut=()=>{
     app.auth().signOut();
       store.dispatch({
         type:'stateChanged',
@@ -34,7 +34,6 @@ export default function UserAccount({navigation}) {
           user:'',
         }
       })
-      nav.navigate('Login')
     }
   
   
@@ -58,13 +57,14 @@ export default function UserAccount({navigation}) {
             });
 
         }else{
-            setUser("");
-            store.dispatch({
-              type:'stateChanged',
-              payload:{
-                state1:'false',
-              }
-            })
+          setUser("");
+          store.dispatch({
+            type:'stateChanged',
+            payload:{
+              state1:'false',
+            }
+          })
+          navigation.navigate('Login')
         }
     });
 };
@@ -94,7 +94,7 @@ useEffect(()=>{
             }
             ></FlatList> 
         </View>
-            <SingleListItem  onPress={()=>{logOut(navigation)}} title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}/>
+            <SingleListItem  onPress={()=>logOut()} title="LogOut" ImageComponent={<Icon name="logout" backgroundColor="#ffe66d"></Icon>}/>
     </Screen>
     );
 }

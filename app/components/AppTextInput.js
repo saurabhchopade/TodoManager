@@ -21,11 +21,11 @@ export default function AppTextInput({icon,placeholder,onChangeText,addTodo,Fiel
       autoCapitalize = {autoCapitalize}
       value={FieldValue}
       ></TextInput>
-      
-      {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>}
-     
-     
+
+      {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={40} onPress={addTodo} />}
      </View>
+      {/* {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>} */}
+
      </>
   );
 }
@@ -45,16 +45,23 @@ const styles = StyleSheet.create({
   textInput:{
     fontSize:18,
     fontFamily:"Roboto",
-    paddingRight:70,
-    marginRight:20,
+    marginRight:"40%",
   },
   icon:{
     marginRight:10,
   },
   addIcon:{
     // marginRight:10,
-    marginTop:5,
-    marginLeft:30,
+    // marginTop:30,
+    // marginLeft:30,
+    backgroundColor:colors.secondary,
+    borderRadius:20,
+    // alignSelf:"center",
+    // alignItems:"center",
+    // alignContent:"center",
+    // marginRight:"10%",
+    // marginTop:10,
+    // position:"absolute"
     // padding:10
     // alignSelf:"center"
   }

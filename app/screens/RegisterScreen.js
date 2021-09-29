@@ -83,7 +83,7 @@ export default function RegisterScreen({navigation}) {
             // clearInputs();
             // setUser(user);
         }else{
-            setUser("");
+            // setUser("");
             store.dispatch({
               type:'stateChanged',
               payload:{
@@ -105,20 +105,24 @@ useEffect(()=>{
         <Image source={require("../../assets/logoFront.png")} style={styles.logo}></Image>
         <AppTextInput
           autoCapitalize= "none"
-          onChangeText={(text)=>setEmail(text)}
+          onChangeText={(email)=>setEmail(email)}
            icon="email" placeholder="Email"></AppTextInput>
         <AppTextInput
-          onChangeText={(text)=>setPassword(text)}
+          onChangeText={(password)=>setPassword(password)}
           autoCapitalize= "none"
         icon="account-lock-outline" placeholder="Password"></AppTextInput>
         <AppButton title="Register" onPress={()=>{handleSignUp()}}> </AppButton>
         <AppButton title="Register With Google" color="secondary"  > </AppButton>
+       
+        <View style={styles.error}>
+          <Text style={styles.text}>{"Already Have am Account?"}</Text>
+          <Text style={styles.pageChange} onPress={()=>navigation.navigate("Login")}>{"SignIn"}</Text>
+        </View>
         <Text style={styles.error}>{emailError}</Text>
       </Screen>
   );
   
 }
-
 
 const styles = StyleSheet.create({
     logo:{
@@ -130,9 +134,16 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     error:{
-      alignSelf:"center",
-      color:colors.primary,
-      marginRight:"5%",
-      marginLeft:"5%"
+        color:colors.primary,
+        flexDirection:"row",
+        alignContent:"center",
+        alignSelf:"center",
+        alignItems:"center",
+    },pageChange:{
+      color:colors.secondary,
+      alignContent:"center",
+    },
+    text:{
+      color:colors.greyOne
     }
 })

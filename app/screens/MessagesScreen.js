@@ -108,11 +108,9 @@ useEffect(()=>{
 
     return (
     <Screen  >
-         <AppTextInput icon="star" placeholder="Write Todo" onChangeText={(text)=>setInput(text)} addTodo={addTodo} FieldValue={input}  ></AppTextInput>
-         {/* <MaterialCommunityIcons style={styles.icon} name="plus" size={5} onPress={addTodo}/> */}
         <ActivityIndicator visible={isLoading}></ActivityIndicator>
+         <AppTextInput style={styles.textInput} icon="star" placeholder="Write Todo" onChangeText={(input)=>setInput(input)} addTodo={addTodo} FieldValue={input}  ></AppTextInput>
         
-
         <FlatList
          data={messages}
         keyExtractor={message=>message.id.toString()} 
@@ -145,5 +143,11 @@ useEffect(()=>{
 const styles = StyleSheet.create({
     icon:{
         alignSelf:"center"
+    },
+    textInput:{
+      // marginRight:70,
+      alignContent:"center",
+      marginRight:200,
+      paddingRight:100,
     }
 })

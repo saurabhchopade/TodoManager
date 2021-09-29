@@ -23,21 +23,25 @@ export default function LoginScreen({navigation}) {
   }
 
   const handleLogin=()=>{
+    console.log("handleLogin");
     clearError();
     setVisible(true);
       app.auth().signInWithEmailAndPassword(email,password).catch((error)=>{
           // TODO: error handling using error code
           switch(error){
-              case "auth/email-already-exists":
-                  setVisible(false);
-                  setEmailError(error.message);
-                  console.log(error.message)
-                  break;
-                  default:
-                    setVisible(false);
-                    setEmailError(error.message);
-                    console.log(error.message)
+              case "auth/email-already-exists":{
+                setVisible(false);
+                setEmailError(error.message);
+                console.log(error.message)
+              }
                 break;
+              default:{
+
+                setVisible(false);
+                setEmailError(error.message);
+                console.log(error.message)
+              }
+               break;
           }
     });
     
@@ -46,6 +50,7 @@ export default function LoginScreen({navigation}) {
 
   const st=(hasAccount)=>{
     console.log(hasAccount);
+    clearError();
     if(hasAccount==="true"){
       navigation.navigate("AppNavigator");
     }
@@ -58,6 +63,7 @@ export default function LoginScreen({navigation}) {
         if(user){
             setUser(user);
             setVisible(false);
+            clearError();
             store.dispatch({
               type:'stateChanged',
               payload:{
@@ -90,16 +96,24 @@ useEffect(()=>{
           <Image style={styles.logo} source={require("../../assets/logoFront.png")}></Image>
         <AppTextInput 
         autoCapitalize= "none"
-        onChangeText={(text)=>setEmail(text)}
+        onChangeText={(email)=>setEmail(email)}
         icon="email" placeholder="Email"></AppTextInput>
+        {/* FieldValue={email} */}
         <AppTextInput 
-         onChangeText={(text)=>setPassword(text)}
+        // FieldValue={password}
+         onChangeText={(password)=>setPassword(password)}
          autoCapitalize= "none"
         icon="account-lock-outline" placeholder="Password"></AppTextInput>
       
-        <AppButton title="Login" onPress={()=>{handleLogin(navigation)}} > </AppButton>
+        <AppButton title="Login" onPress={()=>handleLogin()} > </AppButton>
         <AppButton title="Login With Google" color="secondary"   > </AppButton>
+       
+       <View style={styles.error}>
+        <Text style={styles.text}>{"Don't Have and Account?"}</Text>
+        <Text style={styles.pageChange} onPress={()=>navigation.navigate("Register")}>{"SignUp"}</Text>
+       </View>
         <Text style={styles.error}>{emailError}</Text>
+       
       </Screen>
   );
 
@@ -115,9 +129,18 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     error:{
-      alignSelf:"center",
+      // alignSelf:"center",
       color:colors.primary,
-      marginRight:"5%",
-      marginLeft:"5%"
+      flexDirection:"row",
+      alignContent:"center",
+      alignSelf:"center",
+      alignItems:"center",
+    },
+    pageChange:{
+      color:colors.secondary,
+      alignContent:"center",
+    },
+    text:{
+      color:colors.greyOne
     }
 })
