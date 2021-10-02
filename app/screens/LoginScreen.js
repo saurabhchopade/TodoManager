@@ -8,6 +8,9 @@ import firebase from "firebase";
 import SignUpIndicator from '../components/SignUpIndicator'
 import app from '../config/firebase'
 import colors from '../config/colors';
+import { getAuth,onAuthStateChanged, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
+import * as Google from 'expo-google-app-auth';
+// import { Google } from 'expo';
 
 export default function LoginScreen({navigation}) {
 
@@ -46,7 +49,75 @@ export default function LoginScreen({navigation}) {
     });
     
   }
+  
+ const  isUserEqual=(googleUser, firebaseUser)=>{
+    if (firebaseUser) {
+      const providerData = firebaseUser.providerData;
+      for (let i = 0; i < providerData.length; i++) {
+        if (providerData[i].providerId === GoogleAuthProvider.PROVIDER_ID &&
+            providerData[i].uid === googleUser.getBasicProfile().getId()) {
+          // We don't need to reauth the Firebase connection.
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+   const onSignIn=(googleUser)=> {
+    navigation.navigate("AppNavigator");
 
+    console.log('Google Auth Response', googleUser);
+    // We need to register an Observer on Firebase Auth to make sure auth is initialized.
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      unsubscribe();
+      // Check if we are already signed-in Firebase with the correct user.
+      if (!isUserEqual(googleUser, firebaseUser)) {
+      
+        // Build Firebase credential with the Google ID token.
+        const credential = GoogleAuthProvider.credential(
+          googleUser.idToken,
+          googleUser.accessToken
+        );            
+  
+        // Sign in with credential from the Google user.
+        signInWithCredential(auth, credential).catch((error) => {
+          // Handle Errors here.
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          // The email of the user's account used.
+          const email = error.email;
+          // The credential that was used.
+          const credential = GoogleAuthProvider.credentialFromError(error);
+          // ...
+        });
+      } else {
+        console.log('User already signed-in Firebase.');
+      }
+    });
+  }
+
+
+  async function signInWithGoogleAsync() {
+    try {
+      const result = await Google.logInAsync({
+        behavior:"web",
+        androidClientId: '900579344446-nbdoq709lqi1f96btideunksf5jo32hq.apps.googleusercontent.com',
+        scopes: ['profile', 'email'],
+      });
+  
+      if (result.type === 'success') {
+        console.log("Success")
+        onSignIn(result);
+        return result.accessToken;
+      } else {
+        return { cancelled: true };
+      }
+    } catch (e) {
+      return { error: true };
+    }
+  }
+
+  
 
   const st=(hasAccount)=>{
     console.log(hasAccount);
@@ -106,7 +177,7 @@ useEffect(()=>{
         icon="account-lock-outline" placeholder="Password"></AppTextInput>
       
         <AppButton title="Login" onPress={()=>handleLogin()} > </AppButton>
-        <AppButton title="Login With Google" color="secondary"   > </AppButton>
+        <AppButton title="Login With Google" color="secondary" onPress={()=> signInWithGoogleAsync()}  > </AppButton>
        
        <View style={styles.error}>
         <Text style={styles.text}>{"Don't Have and Account?"}</Text>

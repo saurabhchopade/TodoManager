@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "expo-google-app-auth",
+    "slug": "expo-google-app-auth",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "expo-google-app-auth"
+}
