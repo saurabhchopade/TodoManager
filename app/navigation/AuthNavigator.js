@@ -16,8 +16,6 @@ const AuthNavigator = ()=>{
     console.log(hasAccount);
     store.subscribe(()=>setHasAccount( store.getState().state1));
     
-    const has = ((hasAccount=='true')?"AppNavigator":"Login");
-
     return(
   <Stack.Navigator 
   initialRouteName={((store.getState().state1)=='true')?"AppNavigator":"Login"}

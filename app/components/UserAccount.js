@@ -1,7 +1,6 @@
 import React,{useState,useEffect} from 'react';
 import { View, Text,StyleSheet,FlatList } from 'react-native';
 import colors from '../config/colors';
-import ListItem from './ListItem';
 import Screen from './Screen';
 import Icon from './Icon';
 import ListSeparator from './ListSeparator';

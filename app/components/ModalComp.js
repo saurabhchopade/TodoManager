@@ -1,9 +1,6 @@
 import React,{useState} from 'react';
 import { View, Text,TextInput,StyleSheet,Button} from 'react-native';
-import { MaterialCommunityIcons,AntDesign} from '@expo/vector-icons';
 import colors from '../config/colors';
-import { TouchableHighlight } from 'react-native-gesture-handler';
-
 
 export default function ModalComp({icon,placeholder,onChangeText,addTodo,FieldValue}) {
   return (
