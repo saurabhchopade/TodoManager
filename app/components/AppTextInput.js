@@ -1,13 +1,10 @@
-import React,{useState} from 'react';
-import { View, Text,TextInput,StyleSheet} from 'react-native';
-import { MaterialCommunityIcons,AntDesign} from '@expo/vector-icons';
+import React from 'react';
+import { View,TextInput,StyleSheet} from 'react-native';
+import { MaterialCommunityIcons} from '@expo/vector-icons';
 import colors from '../config/colors';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 export default function AppTextInput({icon,placeholder,onChangeText,addTodo,FieldValue,autoCapitalize}) {
-  const [textInputValue, setTextInputValue] = useState('');
-
 
   return (
     <>
@@ -24,7 +21,6 @@ export default function AppTextInput({icon,placeholder,onChangeText,addTodo,Fiel
 
       {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={40} onPress={addTodo} />}
      </View>
-      {/* {addTodo&&<MaterialCommunityIcons style={styles.addIcon} name="plus" size={30} onPress={addTodo}/>} */}
 
      </>
   );
@@ -34,7 +30,6 @@ const styles = StyleSheet.create({
     backgroundColor:colors.lightGrey,
     borderRadius:25,
     flexDirection:"row",
-    // width:"100%",
     padding:10,
     marginVertical:15,
     alignContent:'center',
@@ -51,18 +46,7 @@ const styles = StyleSheet.create({
     marginRight:10,
   },
   addIcon:{
-    // marginRight:10,
-    // marginTop:30,
-    // marginLeft:30,
     backgroundColor:colors.secondary,
     borderRadius:20,
-    // alignSelf:"center",
-    // alignItems:"center",
-    // alignContent:"center",
-    // marginRight:"10%",
-    // marginTop:10,
-    // position:"absolute"
-    // padding:10
-    // alignSelf:"center"
   }
 })

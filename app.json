@@ -20,11 +20,17 @@
       "supportsTablet": true
     },
     "android": {
-      "package":"com.saurabhdev.todomanager",
+      "package":"host.exp.exponent",
       "versionCode":1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
+      },
+      "config":{
+        "googleSignIn": {
+          "apiKey":"dummy",
+          "certificateHash":"dummy"
+        }
       }
     },
     "web": {

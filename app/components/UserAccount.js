@@ -20,7 +20,6 @@ const menuItem=[
     }
 ]
 
-
 export default function UserAccount({navigation}) {
   
   const [user,setUser] = useState('');
@@ -35,15 +34,11 @@ export default function UserAccount({navigation}) {
         }
       })
     }
-  
-  
       const st=(hasAccount)=>{
         setUser(hasAccount);
       }
       store.subscribe(()=>st( store.getState().user));
       
-
-
   const authListener = () =>{
     app.auth().onAuthStateChanged(function(user) {
         if(user){
@@ -73,8 +68,6 @@ useEffect(()=>{
     authListener();
 },[]);
 
-
-
   return (
     <Screen>
         <View style={styles.container}>
@@ -82,9 +75,7 @@ useEffect(()=>{
         </View>
 
         <ListSeparator></ListSeparator>
-
         <View style={styles.container}>
-           
             <FlatList data={menuItem} 
             keyExtractor={menuItem =>menuItem.title}
             renderItem={({item})=>

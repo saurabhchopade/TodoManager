@@ -5,21 +5,15 @@ import AppTextInput from '../components/AppTextInput';
 import AppButton from '../components/AppButton';
 import colors from '../config/colors';
 import store from '../service/store';
-import SignUpIndicator from '../components/SignUpIndicator';
-
-import ActivityIndicator from '../components/ActivityIndicator';
 import firebase from "firebase";
 import app from '../config/firebase'
 import RegisterIndicator from '../components/RegisterIndicator';
-
-
 
 export default function RegisterScreen({navigation}) {
   
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [emailError,setEmailError] = useState('');
-  // const [user,setUser] = useState('');
   const [visible,setVisible] = useState(false);
 
   const clearError =()=>{
@@ -50,40 +44,14 @@ export default function RegisterScreen({navigation}) {
                   setVisible(false);
                   setEmailError(error.message);
                   console.log(error.message);
-      });
-    
-
-    // if(emailError === ''){
-      // console.log("Logged")
-
-      // store.dispatch({
-      //   type:'stateChanged',
-      //   payload:{
-      //     state1:'true',
-      //   }
-      // })
-      // console.log(user);
-      // setVisible(false);
-      // navigation.navigate('Login')
-    // }
-    
-    // const st=(hasAccount)=>{
-    //   console.log(hasAccount);
-    //   if(hasAccount==="true"){
-    //     navigation.navigate('Login')
-    //   }
-    // }
-    // store.subscribe(()=>st( store.getState().state1));
+      });    
   }
 
 
   const authListener = () =>{
     app.auth().onAuthStateChanged(function(user) {
         if(user){
-            // clearInputs();
-            // setUser(user);
         }else{
-            // setUser("");
             store.dispatch({
               type:'stateChanged',
               payload:{
@@ -112,7 +80,6 @@ useEffect(()=>{
           autoCapitalize= "none"
         icon="account-lock-outline" placeholder="Password"></AppTextInput>
         <AppButton title="Register" onPress={()=>{handleSignUp()}}> </AppButton>
-        <AppButton title="Register With Google" color="secondary"  > </AppButton>
        
         <View style={styles.error}>
           <Text style={styles.text}>{"Already Have am Account?"}</Text>

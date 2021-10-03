@@ -6,9 +6,6 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 export default function ModalComp({icon,placeholder,onChangeText,addTodo,FieldValue}) {
-  const [textInputValue, setTextInputValue] = useState('');
-
-
   return (
     <>
     <View style={styles.container}>
@@ -28,14 +25,12 @@ const styles = StyleSheet.create({
     backgroundColor:colors.lightGrey,
     borderRadius:25,
     flexDirection:"row",
-    // width:"100%",
     padding:7,
     marginVertical:15,
     alignContent:'center',
     alignItems:"center",
     marginRight:"20%",
     marginLeft:"3%",
-    // flexDirection:'row',
   },
   textInput:{
     fontSize:18,

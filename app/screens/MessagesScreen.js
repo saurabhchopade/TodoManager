@@ -1,15 +1,12 @@
 import React,{useState,useEffect} from 'react';
-import { View, Text,FlatList,SafeAreaView,StyleSheet,Platform,StatusBar,TouchableWithoutFeedback } from 'react-native';
+import {FlatList,StyleSheet} from 'react-native';
 import ListItem from '../components/ListItem';
-import Constants from 'expo-constants';
 import Screen from '../components/Screen';
 import ListSeparator from '../components/ListSeparator';
 import ListItemDeleteComponent from '../components/ListItemDeleteComponent';
 import AppTextInput from '../components/AppTextInput';
 import app from '../config/firebase.js'
 import firebase from "firebase";
-import {MaterialCommunityIcons} from  '@expo/vector-icons'
-import colors from '../config/colors';
 import ActivityIndicator from '../components/ActivityIndicator';
 import store from '../service/store';
 
@@ -18,17 +15,9 @@ export default function MessagesScreen() {
     const db = app.firestore();
 
     const [messages,setMessages] = useState([]);
-    const [refresh,setRefresh] = useState(false);
     const [input,setInput]  = useState('');
     const [isLoading,setIsLoading]  = useState(true);
     const [user,setUser] = useState('');
-
-
-
-    const [todos,setTodos]= useState([]);
-    // const [input,setInput]  = useState('');
-    // const [uid,setUid]  = useState('');
-    
 
     const setLoad=()=>{
         setIsLoading(false);
@@ -41,7 +30,6 @@ export default function MessagesScreen() {
       }).
           map( doc=> ({id:doc.id, todo:doc.data().todo}) ))
         setLoad();
-        // console.log(snapshot.docs.map( doc=> ({id:doc.id, todo:doc.data().todo}) ));
       });
     }, []);
     
@@ -61,18 +49,6 @@ export default function MessagesScreen() {
       setInput('');
     }
   }
-
-  const updateTodo =(id) =>{
-
-    console.log(id)
-    if(input){
-    db.collection('users').doc(id).set({
-        todo: input
-    },{merge:true})
-    setInput('');
-    // {ActivityIndicator visible}
-    }
-}
 
 const authListener = () =>{
   app.auth().onAuthStateChanged(function(user) {
@@ -104,8 +80,6 @@ useEffect(()=>{
 },[]);
 
 
-
-
     return (
     <Screen  >
         <ActivityIndicator visible={isLoading}></ActivityIndicator>
@@ -118,7 +92,6 @@ useEffect(()=>{
         
         <ListItem 
         title={item.todo}
-        // subTitle={item.Description}
         image={require('../../assets/abc.jpg')}
         onChangeText={(text)=>setInput(text)}
         addTodo={item.id}
@@ -145,7 +118,6 @@ const styles = StyleSheet.create({
         alignSelf:"center"
     },
     textInput:{
-      // marginRight:70,
       alignContent:"center",
       marginRight:200,
       paddingRight:100,

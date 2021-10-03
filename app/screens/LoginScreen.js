@@ -8,16 +8,10 @@ import firebase from "firebase";
 import SignUpIndicator from '../components/SignUpIndicator'
 import app from '../config/firebase'
 import colors from '../config/colors';
-import { getAuth,onAuthStateChanged, signInWithCredential, GoogleAuthProvider } from "firebase/auth";
-// import * as Google from 'expo-google-sign-in';
 import * as Google from 'expo-google-app-auth';
-
-import Expo from 'expo';
-// import { Google } from 'expo';
 
 export default function LoginScreen({navigation}) {
 
-  
   const [email,setEmail] = useState('');
   const [password,setPassword] = useState('');
   const [emailError,setEmailError] = useState('');
@@ -28,8 +22,12 @@ export default function LoginScreen({navigation}) {
     setEmailError('');
   }
 
+  const clearIdPassword =()=>{
+    setEmail('');
+    setPassword('');
+  }
+
   const handleLogin=()=>{
-    console.log("handleLogin");
     clearError();
     setVisible(true);
       app.auth().signInWithEmailAndPassword(email,password).catch((error)=>{
@@ -56,23 +54,19 @@ export default function LoginScreen({navigation}) {
   const Glogin = async () => {
     setVisible(true);
     try {
-      //await GoogleSignIn.askForPlayServicesAsync();
-      const result = await Google.logInAsync({ //return an object with result token and user
-        behavior:"web",
-        androidClientId: '900579344446-nbdoq709lqi1f96btideunksf5jo32hq.apps.googleusercontent.com', //From app.json
+      const result = await Google.logInAsync({ 
+        androidClientId: 'dummy',
+        androidStandaloneAppClientId: 'dummy'
       });
       if (result.type === 'success') {
-        console.log(result);
-        // setIsLoading(true);
         console.log("LoggedIn")
         const credential = firebase.auth.GoogleAuthProvider.credential( //Set the tokens to Firebase
           result.idToken,
           result.accessToken
         );
-
         app.auth()
           .signInWithCredential(credential)
-          .then( setVisible(false)
+          .then( 
           ) //Login to Firebase
           .catch((error) => {
             setVisible(false);
@@ -99,9 +93,9 @@ export default function LoginScreen({navigation}) {
   const authListener = () =>{
     app.auth().onAuthStateChanged(function(user) {
         if(user){
-            setUser(user);
             setVisible(false);
             clearError();
+            clearIdPassword();
             store.dispatch({
               type:'stateChanged',
               payload:{
@@ -125,8 +119,6 @@ export default function LoginScreen({navigation}) {
 useEffect(()=>{
     authListener();
 },[]);
-
-
 
   return (
       <Screen>
@@ -167,7 +159,6 @@ const styles = StyleSheet.create({
         marginBottom:30
     },
     error:{
-      // alignSelf:"center",
       color:colors.primary,
       flexDirection:"row",
       alignContent:"center",

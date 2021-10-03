@@ -16,16 +16,13 @@ export default function SingleListItem({title,ImageComponent,image,onPress})
         {ImageComponent}
         {image&&<Image style={styles.image} source={image}></Image>}
         <TouchableWithoutFeedback onPress={onPress}>
-
         <View style={styles.textContainer}>
             <Text style={styles.title} 
              >{title} </Text>
         </View>  
              </TouchableWithoutFeedback>
-    
      </View>
-</>
-      
+</>     
   );
 }
 
@@ -33,7 +30,6 @@ const styles = StyleSheet.create({
     container:{
         flexDirection:"row",
         padding:15,
-        // backgroundColor:"#CAD5E2"
     },
     textContainer:{
         marginLeft:10,

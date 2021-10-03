@@ -5,16 +5,12 @@ import AppButton from '../components/AppButton';
 function Welcome({navigation}) {
     return (
         <ImageBackground 
-        // blurRadius={2}
+        blurRadius={2}
         style={styles.background}
-        source={require("../img.jpeg")}
+        source={require("../../assets/img.jpeg")}
         >
-
         <View style={styles.logoContainer}>
-        {/* <Image source={require('../logo.png')} style={styles.logo}></Image> */}
-        {/* <Text style={styles.tagline}>Check Your Todo</Text> */}
         </View>
-       
        <View style={styles.buttonContainer}>
         <AppButton title="Login" onPress={()=>navigation.navigate('Login')}></AppButton>
         <AppButton title="Register"  color="secondary" onPress={()=>navigation.navigate('Register')}></AppButton>

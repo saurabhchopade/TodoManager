@@ -19,24 +19,10 @@ import AppNavigator from './app/navigation/AppNavigator';
 import store from './app/service/store';
 
   export default function App() {
-    // const [hasAccount,setHasAccount] = useState('');
-    
-    //   console.log(hasAccount);
-    //   store.subscribe(()=>setHasAccount( store.getState().state1));
-    
       return (
-      //  hasAccount?(
-            // <>
-              // <NavigationContainer> 
-                // <AppNavigator></AppNavigator>
-              // </NavigationContainer>
-            // </>) :(
-            // <>
              <NavigationContainer> 
               <AuthNavigator></AuthNavigator>
              </NavigationContainer>
-            // </>)
-
     );
   }
   
